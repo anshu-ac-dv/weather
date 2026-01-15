@@ -13,10 +13,8 @@ class Welcomescreen extends StatefulWidget {
 
 class _WelcomescreenState extends State<Welcomescreen> {
   final String apiKey = '7db854964412d253f70be8d767e5fc54';
-
   // 1. Add a controller for the TextField
   final TextEditingController _cityController = TextEditingController();
-
   late Future<Weather> _weatherFuture;
 
   @override
@@ -39,7 +37,6 @@ class _WelcomescreenState extends State<Welcomescreen> {
         'https://api.openweathermap.org/data/2.5/weather?q=$city&appid=$apiKey&units=metric',
       ),
     );
-
     if (response.statusCode == 200) {
       return Weather.fromJson(jsonDecode(response.body));
     } else {
@@ -58,7 +55,10 @@ class _WelcomescreenState extends State<Welcomescreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Weather", style: GoogleFonts.oswald(fontSize: 30,color: Colors.white)),
+        title: Text(
+          "Weather",
+          style: GoogleFonts.oswald(fontSize: 20, color: Colors.white),
+        ),
         centerTitle: true,
         backgroundColor: Colors.purpleAccent,
       ),
@@ -66,6 +66,7 @@ class _WelcomescreenState extends State<Welcomescreen> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
+            SizedBox(height: 50,),
             // 4. Added TextField and Search Button
             Row(
               children: [
@@ -73,8 +74,12 @@ class _WelcomescreenState extends State<Welcomescreen> {
                   child: TextField(
                     controller: _cityController,
                     decoration: const InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
                       hintText: "Enter city name",
-                      border: OutlineInputBorder(),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                      ),
                     ),
                   ),
                 ),
@@ -84,7 +89,7 @@ class _WelcomescreenState extends State<Welcomescreen> {
                 ),
               ],
             ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 10),
 
             // The FutureBuilder now sits inside the Column
             Expanded(
